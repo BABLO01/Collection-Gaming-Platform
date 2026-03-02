@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Usman Collection Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS VARIABLES & RESET ===== */
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --dark: #0f0f1b;
+            --darker: #0a0a12;
+            --light: #f7f9fc;
+            --card-bg: rgba(30, 30, 50, 0.85);
+            --glow: 0 0 15px rgba(108, 92, 231, 0.7);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --border-radius: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(253, 121, 168, 0.07) 0%, transparent 30%);
+            min-height: 100vh;
+        }
+        
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;            overflow: hidden;
+        }
+        
+        .bg-animation::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108,92,231,0.08) 0%, transparent 70%),
+                        radial-gradient(circle, rgba(0,206,201,0.08) 0%, transparent 70%),
+                        radial-gradient(circle, rgba(253,121,168,0.05) 0%, transparent 70%);
+            animation: rotate 45s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+        
+        /* ===== HEADER & HERO SECTION ===== */
+        header {
+            text-align: center;
+            padding: 2rem 1.5rem 3rem;
+            position: relative;            z-index: 10;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            border-radius: 2px;
+            animation: glowPulse 2s infinite;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.7; box-shadow: 0 0 5px var(--secondary); }
+            50% { opacity: 1; box-shadow: 0 0 20px var(--secondary); }
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;            color: rgba(255, 255, 255, 0.85);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1.2s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ===== GAMES GRID ===== */
+        .games-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .game-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: cardEntrance 0.6s ease-out both;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes cardEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), var(--glow);
+            z-index: 20;
+            border-color: rgba(108, 92, 231, 0.5);
+        }
+        
+        .card-icon {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(30,30,50,0.9), rgba(20,20,40,0.95));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-icon::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108,92,231,0.2) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .icon-content {
+            font-size: 4.5rem;
+            z-index: 2;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
+            position: relative;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;        }
+        
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: white;
+            text-align: center;
+            min-height: 3.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .game-desc {
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        .play-btn {
+            background: linear-gradient(45deg, var(--primary), #5e4ae9);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .play-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);            transform: rotate(30deg);
+            transition: var(--transition);
+            opacity: 0;
+        }
+        
+        .play-btn:hover::after {
+            opacity: 1;
+            left: 100%;
+        }
+        
+        .play-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.7), var(--glow);
+            background: linear-gradient(45deg, #5e4ae9, var(--primary));
+        }
+        
+        .play-btn:active {
+            transform: translateY(1px);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1.5s ease-out 0.8s both;
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                padding: 0 1rem;
+            }
+            
+            .games-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+                padding: 0 1rem 3rem;
+            }
+            
+            .card-icon {
+                height: 160px;            }
+            
+            .icon-content {
+                font-size: 3.8rem;
+            }
+            
+            .game-title {
+                font-size: 1.35rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .games-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .card-icon {
+                height: 150px;
+            }
+            
+            .icon-content {
+                font-size: 3.2rem;
+            }
+            
+            .play-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        /* ===== SOUND EFFECTS TOGGLE ===== */
+        .sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: var(--glow);
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        .sound-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .sound-toggle.muted {
+            color: #ff7675;
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(108, 92, 231, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0); }
+        }
+        
+        /* ===== GAME LAUNCHER OVERLAY ===== */
+        .game-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 18, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        
+        .game-overlay.active {
+            opacity: 1;
+            pointer-events: all;        }
+        
+        .game-frame {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            border: 3px solid var(--primary);
+            border-radius: 12px;
+            background: #000;
+            box-shadow: 0 0 40px rgba(108, 92, 231, 0.5);
+            position: relative;
+        }
+        
+        .game-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 9px;
+        }
+        
+        .close-game {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: var(--transition);
+            z-index: 1001;
+        }
+        
+        .close-game:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: #ff5285;
+        }
+        
+        .game-title-overlay {
+            position: absolute;
+            top: -45px;
+            left: 0;
+            background: var(--card-bg);            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+    
+    <!-- Header Section -->
+    <header>
+        <h1 class="logo">Muhammad Usman Collection Games</h1>
+        <p class="subtitle">Experience the ultimate gaming hub with 5 exciting games. Click any card to start playing instantly!</p>
+    </header>
+    
+    <!-- Games Grid -->
+    <main class="games-container">
+        <!-- Game 1: Maze Dungeon Labyrinth -->
+        <article class="game-card">
+            <div class="card-icon">
+                <div class="icon-content">
+                    <i class="fas fa-maze"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Maze Dungeon Labyrinth</h2>
+                <p class="game-desc">Navigate through challenging mazes and escape the dungeon in this thrilling puzzle adventure.</p>
+                <button class="play-btn" data-url="https://bablo01.github.io/Maze-Dungeon-Labyrinth-/">
+                    <i class="fas fa-play-circle"></i> Play Now
+                </button>
+            </div>
+        </article>
+        
+        <!-- Game 2: Color Crush Saga -->
+        <article class="game-card">
+            <div class="card-icon">
+                <div class="icon-content">
+                    <i class="fas fa-palette"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Color Crush Saga</h2>
+                <p class="game-desc">Match colorful gems and create explosive combos in this addictive puzzle challenge.</p>
+                <button class="play-btn" data-url="https://bablo01.github.io/Color-Crush-Saga/">
+                    <i class="fas fa-play-circle"></i> Play Now                </button>
+            </div>
+        </article>
+        
+        <!-- Game 3: Dan The Man -->
+        <article class="game-card">
+            <div class="card-icon">
+                <div class="icon-content">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Dan The Man</h2>
+                <p class="game-desc">Join Dan in this action-packed beat 'em up adventure with epic battles and boss fights.</p>
+                <button class="play-btn" data-url="https://bablo01.github.io/DAN-THE-MAN/">
+                    <i class="fas fa-play-circle"></i> Play Now
+                </button>
+            </div>
+        </article>
+        
+        <!-- Game 4: Hunter Assassin -->
+        <article class="game-card">
+            <div class="card-icon">
+                <div class="icon-content">
+                    <i class="fas fa-crosshairs"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Hunter Assassin</h2>
+                <p class="game-desc">Become the ultimate stealth assassin. Plan your moves and eliminate targets without being detected.</p>
+                <button class="play-btn" data-url="https://bablo01.github.io/Hunter-Assassin/">
+                    <i class="fas fa-play-circle"></i> Play Now
+                </button>
+            </div>
+        </article>
+        
+        <!-- Game 5: Vector -->
+        <article class="game-card">
+            <div class="card-icon">
+                <div class="icon-content">
+                    <i class="fas fa-running"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Vector</h2>
+                <p class="game-desc">Parkour through dangerous environments in this high-speed runner with fluid animations and challenging obstacles.</p>
+                <button class="play-btn" data-url="https://bablo01.github.io/Vector/">
+                    <i class="fas fa-play-circle"></i> Play Now
+                </button>
+            </div>        </article>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Muhammad Usman Collection Games • All Rights Reserved • Crafted with ❤️ for Gamers</p>
+    </footer>
+    
+    <!-- Sound Toggle Button -->
+    <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound effects">
+        <i class="fas fa-volume-up"></i>
+    </button>
+    
+    <!-- Game Launcher Overlay -->
+    <div class="game-overlay" id="gameOverlay">
+        <button class="close-game" id="closeGame">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="game-title-overlay" id="gameTitleOverlay">Game Title</div>
+        <div class="game-frame">
+            <iframe id="gameFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // ===== PARTICLE SYSTEM =====
+        document.addEventListener('DOMContentLoaded', () => {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth > 768 ? 35 : 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 6 + 2;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+                        // ===== SOUND EFFECTS =====
+            const soundToggle = document.getElementById('soundToggle');
+            let soundEnabled = true;
+            let audioContext = null;
+            
+            // Initialize audio context on first user interaction
+            const initAudio = () => {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            };
+            
+            // Play subtle click sound
+            const playClickSound = () => {
+                if (!soundEnabled || !audioContext) return;
+                
+                try {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 300;
+                    gainNode.gain.value = 0.05;
+                    
+                    oscillator.start();
+                    setTimeout(() => {
+                        oscillator.stop();
+                    }, 100);
+                } catch (e) {
+                    console.log('Audio playback failed:', e);
+                }
+            };
+            
+            // Toggle sound
+            soundToggle.addEventListener('click', () => {
+                initAudio();
+                soundEnabled = !soundEnabled;
+                soundToggle.classList.toggle('muted', !soundEnabled);
+                soundToggle.innerHTML = soundEnabled ? 
+                    '<i class="fas fa-volume-up"></i>' : 
+                    '<i class="fas fa-volume-mute"></i>';
+                
+                if (soundEnabled) {
+                    playClickSound();
+                }
+            });
+                        // ===== GAME LAUNCHER =====
+            const playButtons = document.querySelectorAll('.play-btn');
+            const gameOverlay = document.getElementById('gameOverlay');
+            const gameFrame = document.getElementById('gameFrame');
+            const gameTitleOverlay = document.getElementById('gameTitleOverlay');
+            const closeGameBtn = document.getElementById('closeGame');
+            
+            playButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    initAudio();
+                    playClickSound();
+                    
+                    const gameUrl = button.getAttribute('data-url');
+                    const gameTitle = button.closest('.game-card').querySelector('.game-title').textContent;
+                    
+                    // Set game title and URL
+                    gameTitleOverlay.textContent = gameTitle;
+                    gameFrame.src = gameUrl;
+                    
+                    // Show overlay with animation
+                    gameOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close game overlay
+            const closeGame = () => {
+                gameOverlay.classList.remove('active');
+                gameFrame.src = ''; // Stop game execution
+                document.body.style.overflow = '';
+                playClickSound();
+            };
+            
+            closeGameBtn.addEventListener('click', closeGame);
+            
+            // Close when clicking outside the game frame
+            gameOverlay.addEventListener('click', (e) => {
+                if (e.target === gameOverlay) {
+                    closeGame();
+                }
+            });
+            
+            // Close with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && gameOverlay.classList.contains('active')) {
+                    closeGame();
+                }
+            });
+                        // ===== CARD HOVER SOUND (optional enhancement) =====
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    if (soundEnabled) {
+                        // Very subtle hover sound
+                        try {
+                            if (!audioContext) initAudio();
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            oscillator.type = 'sine';
+                            oscillator.frequency.value = 200;
+                            gainNode.gain.value = 0.02;
+                            oscillator.start();
+                            setTimeout(() => oscillator.stop(), 50);
+                        } catch(e) {}
+                    }
+                });
+            });
+            
+            // ===== INITIALIZE AUDIO ON FIRST CLICK ANYWHERE =====
+            document.body.addEventListener('click', initAudio, { once: true });
+        });
+    </script>
+</body>
+</html>
