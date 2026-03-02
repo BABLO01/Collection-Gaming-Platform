@@ -47,7 +47,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;            overflow: hidden;
+            z-index: -2;
+            overflow: hidden;
         }
         
         .bg-animation::before {
@@ -96,7 +97,8 @@
         header {
             text-align: center;
             padding: 2rem 1.5rem 3rem;
-            position: relative;            z-index: 10;
+            position: relative;
+            z-index: 10;
             animation: fadeInDown 1s ease-out;
         }
         
@@ -145,7 +147,8 @@
         
         .subtitle {
             font-size: 1.4rem;
-            margin-bottom: 2.5rem;            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.85);
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
@@ -182,6 +185,7 @@
             animation: cardEntrance 0.6s ease-out both;
             opacity: 0;
             transform: translateY(20px);
+            cursor: pointer;
         }
         
         .game-card:nth-child(1) { animation-delay: 0.1s; }
@@ -194,7 +198,8 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }        }
+            }
+        }
         
         .game-card:hover {
             transform: translateY(-10px) scale(1.03);
@@ -243,7 +248,8 @@
             padding: 1.5rem;
             flex-grow: 1;
             display: flex;
-            flex-direction: column;        }
+            flex-direction: column;
+        }
         
         .game-title {
             font-size: 1.5rem;
@@ -292,7 +298,8 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);            transform: rotate(30deg);
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(30deg);
             transition: var(--transition);
             opacity: 0;
         }
@@ -341,7 +348,8 @@
             }
             
             .card-icon {
-                height: 160px;            }
+                height: 160px;
+            }
             
             .icon-content {
                 font-size: 3.8rem;
@@ -390,7 +398,8 @@
             height: 50px;
             border-radius: 50%;
             background: var(--card-bg);
-            border: 2px solid var(--primary);            color: var(--secondary);
+            border: 2px solid var(--primary);
+            color: var(--secondary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -419,14 +428,14 @@
             100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0); }
         }
         
-        /* ===== GAME LAUNCHER OVERLAY ===== */
+        /* ===== GAME LAUNCHER OVERLAY - UPDATED ===== */
         .game-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 10, 18, 0.95);
+            background: rgba(10, 10, 18, 0.98);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -439,61 +448,257 @@
         
         .game-overlay.active {
             opacity: 1;
-            pointer-events: all;        }
-        
-        .game-frame {
-            width: 90%;
-            max-width: 1200px;
-            height: 85vh;
-            border: 3px solid var(--primary);
-            border-radius: 12px;
-            background: #000;
-            box-shadow: 0 0 40px rgba(108, 92, 231, 0.5);
-            position: relative;
+            pointer-events: all;
         }
         
-        .game-frame iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 9px;
+        .game-header {
+            width: 95%;
+            max-width: 1400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0 10px;
         }
         
-        .close-game {
-            position: absolute;
-            top: -45px;
-            right: 0;
-            background: var(--accent);
+        .game-title-overlay {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.5);
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .game-controls {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .back-menu-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            transition: var(--transition);
+            z-index: 1001;
+        }
+        
+        .back-menu-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.6);
+            background: linear-gradient(135deg, #c0392b, #a93226);
+        }
+        
+        .fullscreen-btn {
+            background: linear-gradient(135deg, var(--secondary), #00b5b0);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 206, 201, 0.4);
             transition: var(--transition);
             z-index: 1001;
         }
         
-        .close-game:hover {
-            transform: scale(1.1) rotate(90deg);
-            background: #ff5285;
+        .fullscreen-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 20px rgba(0, 206, 201, 0.6);
         }
         
-        .game-title-overlay {
-            position: absolute;
-            top: -45px;
-            left: 0;
-            background: var(--card-bg);            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
+        .game-frame {
+            width: 95%;
+            max-width: 1400px;
+            height: 88vh;
+            border: 3px solid var(--primary);
+            border-radius: 16px;
+            background: #000;
+            box-shadow: 0 0 50px rgba(108, 92, 231, 0.6), inset 0 0 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 13px;
+        }
+        
+        /* Exit Confirmation Modal */
+        .exit-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            z-index: 1002;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+        }
+        
+        .exit-modal.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .exit-modal h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .exit-modal p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
             font-size: 1.1rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .exit-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-btn.stay {
+            background: linear-gradient(135deg, var(--primary), #5e4ae9);
+            color: white;
+        }
+        
+        .modal-btn.stay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.5);
+        }
+        
+        .modal-btn.exit {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .modal-btn.exit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        /* Fullscreen Mode */
+        .game-overlay.fullscreen .game-frame {
+            width: 100%;
+            max-width: 100%;
+            height: 100vh;
+            border: none;
+            border-radius: 0;
+        }
+        
+        .game-overlay.fullscreen .game-header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1002;
+        }
+        
+        /* Responsive for Game Overlay */
+        @media (max-width: 768px) {
+            .game-header {
+                width: 98%;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .game-title-overlay {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .game-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .game-frame {
+                width: 98%;
+                height: 85vh;
+            }
+            
+            .back-menu-btn {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-frame {
+                height: 82vh;
+            }
+            
+            .game-title-overlay {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+            
+            .back-menu-btn span {
+                display: none;
+            }
+            
+            .back-menu-btn {
+                padding: 10px 15px;
+            }
         }
     </style>
 </head>
@@ -511,7 +716,7 @@
     <!-- Games Grid -->
     <main class="games-container">
         <!-- Game 1: Maze Dungeon Labyrinth -->
-        <article class="game-card">
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/Maze-Dungeon-Labyrinth-/', 'Maze Dungeon Labyrinth')">
             <div class="card-icon">
                 <div class="icon-content">
                     <i class="fas fa-maze"></i>
@@ -520,14 +725,14 @@
             <div class="card-content">
                 <h2 class="game-title">Maze Dungeon Labyrinth</h2>
                 <p class="game-desc">Navigate through challenging mazes and escape the dungeon in this thrilling puzzle adventure.</p>
-                <button class="play-btn" data-url="https://bablo01.github.io/Maze-Dungeon-Labyrinth-/">
+                <button class="play-btn">
                     <i class="fas fa-play-circle"></i> Play Now
                 </button>
             </div>
         </article>
         
         <!-- Game 2: Color Crush Saga -->
-        <article class="game-card">
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/Color-Crush-Saga/', 'Color Crush AI Saga')">
             <div class="card-icon">
                 <div class="icon-content">
                     <i class="fas fa-palette"></i>
@@ -536,13 +741,14 @@
             <div class="card-content">
                 <h2 class="game-title">Color Crush Saga</h2>
                 <p class="game-desc">Match colorful gems and create explosive combos in this addictive puzzle challenge.</p>
-                <button class="play-btn" data-url="https://bablo01.github.io/Color-Crush-Saga/">
-                    <i class="fas fa-play-circle"></i> Play Now                </button>
+                <button class="play-btn">
+                    <i class="fas fa-play-circle"></i> Play Now
+                </button>
             </div>
         </article>
         
         <!-- Game 3: Dan The Man -->
-        <article class="game-card">
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/DAN-THE-MAN/', 'Dan The Man')">
             <div class="card-icon">
                 <div class="icon-content">
                     <i class="fas fa-user-ninja"></i>
@@ -551,14 +757,14 @@
             <div class="card-content">
                 <h2 class="game-title">Dan The Man</h2>
                 <p class="game-desc">Join Dan in this action-packed beat 'em up adventure with epic battles and boss fights.</p>
-                <button class="play-btn" data-url="https://bablo01.github.io/DAN-THE-MAN/">
+                <button class="play-btn">
                     <i class="fas fa-play-circle"></i> Play Now
                 </button>
             </div>
         </article>
         
         <!-- Game 4: Hunter Assassin -->
-        <article class="game-card">
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/Hunter-Assassin/', 'Hunter Assassin')">
             <div class="card-icon">
                 <div class="icon-content">
                     <i class="fas fa-crosshairs"></i>
@@ -567,14 +773,14 @@
             <div class="card-content">
                 <h2 class="game-title">Hunter Assassin</h2>
                 <p class="game-desc">Become the ultimate stealth assassin. Plan your moves and eliminate targets without being detected.</p>
-                <button class="play-btn" data-url="https://bablo01.github.io/Hunter-Assassin/">
+                <button class="play-btn">
                     <i class="fas fa-play-circle"></i> Play Now
                 </button>
             </div>
         </article>
         
         <!-- Game 5: Vector -->
-        <article class="game-card">
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/Vector/', 'Vector')">
             <div class="card-icon">
                 <div class="icon-content">
                     <i class="fas fa-running"></i>
@@ -583,10 +789,11 @@
             <div class="card-content">
                 <h2 class="game-title">Vector</h2>
                 <p class="game-desc">Parkour through dangerous environments in this high-speed runner with fluid animations and challenging obstacles.</p>
-                <button class="play-btn" data-url="https://bablo01.github.io/Vector/">
+                <button class="play-btn">
                     <i class="fas fa-play-circle"></i> Play Now
                 </button>
-            </div>        </article>
+            </div>
+        </article>
     </main>
     
     <!-- Footer -->
@@ -599,14 +806,37 @@
         <i class="fas fa-volume-up"></i>
     </button>
     
-    <!-- Game Launcher Overlay -->
+    <!-- Game Launcher Overlay - UPDATED -->
     <div class="game-overlay" id="gameOverlay">
-        <button class="close-game" id="closeGame">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="game-title-overlay" id="gameTitleOverlay">Game Title</div>
+        <div class="game-header">
+            <div class="game-title-overlay" id="gameTitleOverlay">Game Title</div>
+            <div class="game-controls">
+                <button class="fullscreen-btn" id="fullscreenBtn" title="Toggle Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="back-menu-btn" id="backMenuBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Menu</span>
+                </button>
+            </div>
+        </div>
         <div class="game-frame">
             <iframe id="gameFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <!-- Exit Confirmation Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="exit-modal" id="exitModal">
+        <h3><i class="fas fa-exclamation-circle"></i> Exit Game?</h3>
+        <p>Are you sure you want to return to the main menu? Your progress may not be saved.</p>
+        <div class="exit-modal-buttons">
+            <button class="modal-btn stay" id="stayBtn">
+                <i class="fas fa-play"></i> Keep Playing
+            </button>
+            <button class="modal-btn exit" id="confirmExitBtn">
+                <i class="fas fa-sign-out-alt"></i> Exit
+            </button>
         </div>
     </div>
 
@@ -635,7 +865,8 @@
                 
                 particlesContainer.appendChild(particle);
             }
-                        // ===== SOUND EFFECTS =====
+            
+            // ===== SOUND EFFECTS =====
             const soundToggle = document.getElementById('soundToggle');
             let soundEnabled = true;
             let audioContext = null;
@@ -684,75 +915,99 @@
                     playClickSound();
                 }
             });
-                        // ===== GAME LAUNCHER =====
-            const playButtons = document.querySelectorAll('.play-btn');
+            
+            // ===== GAME LAUNCHER FUNCTIONS =====
             const gameOverlay = document.getElementById('gameOverlay');
             const gameFrame = document.getElementById('gameFrame');
             const gameTitleOverlay = document.getElementById('gameTitleOverlay');
-            const closeGameBtn = document.getElementById('closeGame');
+            const backMenuBtn = document.getElementById('backMenuBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const exitModal = document.getElementById('exitModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const stayBtn = document.getElementById('stayBtn');
+            const confirmExitBtn = document.getElementById('confirmExitBtn');
             
-            playButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    initAudio();
-                    playClickSound();
-                    
-                    const gameUrl = button.getAttribute('data-url');
-                    const gameTitle = button.closest('.game-card').querySelector('.game-title').textContent;
-                    
-                    // Set game title and URL
-                    gameTitleOverlay.textContent = gameTitle;
-                    gameFrame.src = gameUrl;
-                    
-                    // Show overlay with animation
-                    gameOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
+            // Open Game Function
+            window.openGame = (gameUrl, gameTitle) => {
+                initAudio();
+                playClickSound();
+                
+                // Set game title and URL
+                gameTitleOverlay.textContent = gameTitle;
+                gameFrame.src = gameUrl;
+                
+                // Show overlay with animation
+                gameOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Reset fullscreen mode
+                gameOverlay.classList.remove('fullscreen');
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            };
             
-            // Close game overlay
-            const closeGame = () => {
-                gameOverlay.classList.remove('active');
-                gameFrame.src = ''; // Stop game execution
-                document.body.style.overflow = '';
+            // Show Exit Confirmation Modal
+            const showExitModal = () => {
+                exitModal.classList.add('active');
+                modalOverlay.classList.add('active');
                 playClickSound();
             };
             
-            closeGameBtn.addEventListener('click', closeGame);
+            // Hide Exit Modal
+            const hideExitModal = () => {
+                exitModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            };
             
-            // Close when clicking outside the game frame
-            gameOverlay.addEventListener('click', (e) => {
-                if (e.target === gameOverlay) {
-                    closeGame();
+            // Close Game and Return to Menu
+            const closeGame = () => {
+                gameOverlay.classList.remove('active');
+                setTimeout(() => {
+                    gameFrame.src = ''; // Stop game execution
+                }, 400);
+                document.body.style.overflow = '';
+                hideExitModal();
+                playClickSound();
+            };
+            
+            // Back to Menu Button Click
+            backMenuBtn.addEventListener('click', showExitModal);
+            
+            // Stay Button Click
+            stayBtn.addEventListener('click', hideExitModal);
+            
+            // Confirm Exit Button Click
+            confirmExitBtn.addEventListener('click', closeGame);
+            
+            // Click on modal overlay to close modal
+            modalOverlay.addEventListener('click', hideExitModal);
+            
+            // Fullscreen Toggle
+            fullscreenBtn.addEventListener('click', () => {
+                gameOverlay.classList.toggle('fullscreen');
+                if (gameOverlay.classList.contains('fullscreen')) {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                    fullscreenBtn.title = 'Exit Fullscreen';
+                } else {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    fullscreenBtn.title = 'Toggle Fullscreen';
                 }
+                playClickSound();
             });
             
             // Close with Escape key
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && gameOverlay.classList.contains('active')) {
-                    closeGame();
-                }
-            });
-                        // ===== CARD HOVER SOUND (optional enhancement) =====
-            const gameCards = document.querySelectorAll('.game-card');
-            gameCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    if (soundEnabled) {
-                        // Very subtle hover sound
-                        try {
-                            if (!audioContext) initAudio();
-                            const oscillator = audioContext.createOscillator();
-                            const gainNode = audioContext.createGain();
-                            oscillator.connect(gainNode);
-                            gainNode.connect(audioContext.destination);
-                            oscillator.type = 'sine';
-                            oscillator.frequency.value = 200;
-                            gainNode.gain.value = 0.02;
-                            oscillator.start();
-                            setTimeout(() => oscillator.stop(), 50);
-                        } catch(e) {}
+                if (e.key === 'Escape') {
+                    if (exitModal.classList.contains('active')) {
+                        hideExitModal();
+                    } else if (gameOverlay.classList.contains('active')) {
+                        if (gameOverlay.classList.contains('fullscreen')) {
+                            gameOverlay.classList.remove('fullscreen');
+                            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                        } else {
+                            showExitModal();
+                        }
                     }
-                });
+                }
             });
             
             // ===== INITIALIZE AUDIO ON FIRST CLICK ANYWHERE =====
@@ -761,3 +1016,4 @@
     </script>
 </body>
 </html>
+
