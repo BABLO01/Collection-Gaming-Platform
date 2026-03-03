@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Muhammad Usman Collection Games</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -25,6 +25,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -38,6 +39,7 @@
                 radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 50% 50%, rgba(253, 121, 168, 0.07) 0%, transparent 30%);
             min-height: 100vh;
+            touch-action: manipulation;
         }
         
         /* ===== ANIMATED BACKGROUND ===== */
@@ -451,95 +453,99 @@
             pointer-events: all;
         }
         
-        .game-header {
-            width: 95%;
-            max-width: 1400px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 0 10px;
-        }
-        
-        .game-title-overlay {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1.3rem;
-            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.5);
-            border: 2px solid rgba(255,255,255,0.2);
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
+        /* Minimal Controls - Auto Hide */
         .game-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
             display: flex;
-            gap: 12px;
+            gap: 10px;
+            z-index: 1002;
+            opacity: 1;
+            transition: opacity 0.3s ease;
         }
         
-        .back-menu-btn {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
-            transition: var(--transition);
-            z-index: 1001;
+        .game-controls.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
         
-        .back-menu-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.6);
-            background: linear-gradient(135deg, #c0392b, #a93226);
-        }
-        
-        .fullscreen-btn {
-            background: linear-gradient(135deg, var(--secondary), #00b5b0);
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
+        .control-btn {
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            font-size: 1.2rem;
+            border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 206, 201, 0.4);
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             transition: var(--transition);
-            z-index: 1001;
+            color: white;
+        }
+        
+        .fullscreen-btn {
+            background: linear-gradient(135deg, var(--secondary), #00b5b0);
         }
         
         .fullscreen-btn:hover {
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 8px 20px rgba(0, 206, 201, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 206, 201, 0.5);
+        }
+        
+        .back-menu-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .back-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(231, 76, 60, 0.5);
+        }
+        
+        /* Hint for controls */
+        .controls-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            z-index: 1002;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .controls-hint.hidden {
+            opacity: 0;
         }
         
         .game-frame {
-            width: 95%;
-            max-width: 1400px;
-            height: 88vh;
-            border: 3px solid var(--primary);
-            border-radius: 16px;
+            width: 100%;
+            height: 100%;
             background: #000;
-            box-shadow: 0 0 50px rgba(108, 92, 231, 0.6), inset 0 0 50px rgba(0,0,0,0.5);
             position: relative;
-            overflow: hidden;
         }
         
         .game-frame iframe {
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 13px;
+        }
+        
+        /* Swipe Zone Indicators */
+        .swipe-zone-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            z-index: 1001;
+            /* background: rgba(255,255,255,0.05); */
         }
         
         /* Exit Confirmation Modal */
@@ -553,7 +559,7 @@
             border-radius: 20px;
             border: 2px solid var(--primary);
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            z-index: 1002;
+            z-index: 1003;
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
@@ -623,7 +629,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.8);
-            z-index: 1001;
+            z-index: 1002;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
@@ -637,67 +643,34 @@
         /* Fullscreen Mode */
         .game-overlay.fullscreen .game-frame {
             width: 100%;
-            max-width: 100%;
             height: 100vh;
-            border: none;
-            border-radius: 0;
-        }
-        
-        .game-overlay.fullscreen .game-header {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 1002;
         }
         
         /* Responsive for Game Overlay */
         @media (max-width: 768px) {
-            .game-header {
-                width: 98%;
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .game-title-overlay {
-                font-size: 1.1rem;
-                padding: 10px 20px;
-                width: 100%;
-                text-align: center;
-            }
-            
             .game-controls {
-                width: 100%;
-                justify-content: center;
+                top: 10px;
+                right: 10px;
             }
             
-            .game-frame {
-                width: 98%;
-                height: 85vh;
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
             
-            .back-menu-btn {
-                padding: 10px 20px;
-                font-size: 0.95rem;
+            .controls-hint {
+                font-size: 0.8rem;
+                padding: 6px 15px;
+                bottom: 20px;
             }
         }
         
         @media (max-width: 480px) {
-            .game-frame {
-                height: 82vh;
-            }
-            
-            .game-title-overlay {
-                font-size: 1rem;
-                padding: 8px 15px;
-            }
-            
-            .back-menu-btn span {
-                display: none;
-            }
-            
-            .back-menu-btn {
-                padding: 10px 15px;
+            .control-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -808,18 +781,25 @@
     
     <!-- Game Launcher Overlay - UPDATED -->
     <div class="game-overlay" id="gameOverlay">
-        <div class="game-header">
-            <div class="game-title-overlay" id="gameTitleOverlay">Game Title</div>
-            <div class="game-controls">
-                <button class="fullscreen-btn" id="fullscreenBtn" title="Toggle Fullscreen">
-                    <i class="fas fa-expand"></i>
-                </button>
-                <button class="back-menu-btn" id="backMenuBtn">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Back to Menu</span>
-                </button>
-            </div>
+        <!-- Swipe Zone for Back Gesture -->
+        <div class="swipe-zone-left" id="swipeZone"></div>
+        
+        <!-- Minimal Controls (Auto-hide) -->
+        <div class="game-controls" id="gameControls">
+            <button class="control-btn fullscreen-btn" id="fullscreenBtn" title="Toggle Fullscreen">
+                <i class="fas fa-expand"></i>
+            </button>
+            <button class="control-btn back-menu-btn" id="backMenuBtn" title="Back to Menu">
+                <i class="fas fa-arrow-left"></i>
+            </button>
         </div>
+        
+        <!-- Hint Text -->
+        <div class="controls-hint" id="controlsHint">
+            <i class="fas fa-hand-point-left"></i> Swipe from left edge or tap screen to show/hide controls
+        </div>
+        
+        <!-- Game Frame - Full Screen -->
         <div class="game-frame">
             <iframe id="gameFrame" src="" allowfullscreen></iframe>
         </div>
@@ -850,7 +830,6 @@
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Random properties
                 const size = Math.random() * 6 + 2;
                 const posX = Math.random() * 100;
                 const delay = Math.random() * 15;
@@ -871,14 +850,12 @@
             let soundEnabled = true;
             let audioContext = null;
             
-            // Initialize audio context on first user interaction
             const initAudio = () => {
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
             };
             
-            // Play subtle click sound
             const playClickSound = () => {
                 if (!soundEnabled || !audioContext) return;
                 
@@ -902,7 +879,6 @@
                 }
             };
             
-            // Toggle sound
             soundToggle.addEventListener('click', () => {
                 initAudio();
                 soundEnabled = !soundEnabled;
@@ -919,70 +895,162 @@
             // ===== GAME LAUNCHER FUNCTIONS =====
             const gameOverlay = document.getElementById('gameOverlay');
             const gameFrame = document.getElementById('gameFrame');
-            const gameTitleOverlay = document.getElementById('gameTitleOverlay');
+            const gameControls = document.getElementById('gameControls');
+            const controlsHint = document.getElementById('controlsHint');
             const backMenuBtn = document.getElementById('backMenuBtn');
             const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const swipeZone = document.getElementById('swipeZone');
             const exitModal = document.getElementById('exitModal');
             const modalOverlay = document.getElementById('modalOverlay');
             const stayBtn = document.getElementById('stayBtn');
             const confirmExitBtn = document.getElementById('confirmExitBtn');
+            
+            let controlsVisible = true;
+            let autoHideTimer = null;
+            let touchStartX = 0;
+            let touchEndX = 0;
             
             // Open Game Function
             window.openGame = (gameUrl, gameTitle) => {
                 initAudio();
                 playClickSound();
                 
-                // Set game title and URL
-                gameTitleOverlay.textContent = gameTitle;
                 gameFrame.src = gameUrl;
-                
-                // Show overlay with animation
                 gameOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
-                // Reset fullscreen mode
+                // Reset fullscreen
                 gameOverlay.classList.remove('fullscreen');
                 fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                
+                // Show hint for 5 seconds then hide
+                setTimeout(() => {
+                    if (controlsHint) {
+                        controlsHint.classList.add('hidden');
+                    }
+                }, 5000);
+                
+                // Start auto-hide timer for controls
+                startAutoHideTimer();
+            };
+            
+            // Auto-hide controls after inactivity
+            const startAutoHideTimer = () => {
+                if (autoHideTimer) clearTimeout(autoHideTimer);
+                autoHideTimer = setTimeout(() => {
+                    if (controlsVisible && !exitModal.classList.contains('active')) {
+                        hideControls();
+                    }
+                }, 4000); // Hide after 4 seconds
+            };
+            
+            const hideControls = () => {
+                gameControls.classList.add('hidden');
+                controlsVisible = false;
+            };
+            
+            const showControls = () => {
+                gameControls.classList.remove('hidden');
+                controlsVisible = true;
+                startAutoHideTimer();
+            };
+            
+            // Toggle controls on screen tap (except on buttons)
+            gameFrame.addEventListener('click', (e) => {
+                if (e.target === gameFrame || e.target.tagName === 'IFRAME') {
+                    if (controlsVisible) {
+                        hideControls();
+                    } else {
+                        showControls();
+                    }
+                }
+            });
+            
+            // Swipe gesture detection
+            swipeZone.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+            
+            swipeZone.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+            
+            // Also detect swipe on whole overlay
+            gameOverlay.addEventListener('touchstart', (e) => {
+                if (e.target === gameOverlay || e.target.classList.contains('game-frame')) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }
+            }, {passive: true});
+            
+            gameOverlay.addEventListener('touchend', (e) => {
+                if (e.target === gameOverlay || e.target.classList.contains('game-frame')) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                }
+            }, {passive: true});
+            
+            const handleSwipe = () => {
+                const swipeThreshold = 80;
+                const diff = touchEndX - touchStartX;
+                
+                // Swipe right from left edge to go back
+                if (diff > swipeThreshold && touchStartX < 100) {
+                    showExitModal();
+                }
             };
             
             // Show Exit Confirmation Modal
             const showExitModal = () => {
                 exitModal.classList.add('active');
                 modalOverlay.classList.add('active');
+                if (autoHideTimer) clearTimeout(autoHideTimer);
                 playClickSound();
             };
             
-            // Hide Exit Modal
             const hideExitModal = () => {
                 exitModal.classList.remove('active');
                 modalOverlay.classList.remove('active');
+                startAutoHideTimer();
             };
             
             // Close Game and Return to Menu
             const closeGame = () => {
                 gameOverlay.classList.remove('active');
                 setTimeout(() => {
-                    gameFrame.src = ''; // Stop game execution
+                    gameFrame.src = '';
                 }, 400);
                 document.body.style.overflow = '';
                 hideExitModal();
                 playClickSound();
+                
+                if (autoHideTimer) clearTimeout(autoHideTimer);
             };
             
             // Back to Menu Button Click
-            backMenuBtn.addEventListener('click', showExitModal);
+            backMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showExitModal();
+            });
             
             // Stay Button Click
-            stayBtn.addEventListener('click', hideExitModal);
+            stayBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hideExitModal();
+            });
             
             // Confirm Exit Button Click
-            confirmExitBtn.addEventListener('click', closeGame);
+            confirmExitBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeGame();
+            });
             
             // Click on modal overlay to close modal
             modalOverlay.addEventListener('click', hideExitModal);
             
             // Fullscreen Toggle
-            fullscreenBtn.addEventListener('click', () => {
+            fullscreenBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 gameOverlay.classList.toggle('fullscreen');
                 if (gameOverlay.classList.contains('fullscreen')) {
                     fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
@@ -992,25 +1060,26 @@
                     fullscreenBtn.title = 'Toggle Fullscreen';
                 }
                 playClickSound();
+                startAutoHideTimer();
             });
             
-            // Close with Escape key
+            // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
+                if (!gameOverlay.classList.contains('active')) return;
+                
                 if (e.key === 'Escape') {
                     if (exitModal.classList.contains('active')) {
                         hideExitModal();
-                    } else if (gameOverlay.classList.contains('active')) {
-                        if (gameOverlay.classList.contains('fullscreen')) {
-                            gameOverlay.classList.remove('fullscreen');
-                            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-                        } else {
-                            showExitModal();
-                        }
+                    } else if (gameOverlay.classList.contains('fullscreen')) {
+                        gameOverlay.classList.remove('fullscreen');
+                        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    } else {
+                        showExitModal();
                     }
                 }
             });
             
-            // ===== INITIALIZE AUDIO ON FIRST CLICK ANYWHERE =====
+            // Initialize audio on first interaction
             document.body.addEventListener('click', initAudio, { once: true });
         });
     </script>
