@@ -1,11 +1,11 @@
 {
-  "name": "Muhammad Usman Collection Games",
-  "short_name": "Usman Games",
+  "name": "Apex Collection Games",
+  "short_name": "Apex Gameing",
   "description": "Play the best web games in one collection.",
   "start_url": "./index.html",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#0f0f1b",
-  "theme_color": "#6c5ce7",
+  "theme_color": "#faf7ff",
   "icons": [
     {
       "src": "icon-192x192.png",
