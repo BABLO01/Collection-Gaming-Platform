@@ -48,7 +48,6 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -69,8 +68,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100%;            height: 100%;
             z-index: -2;
             overflow: hidden;
         }
@@ -119,8 +117,7 @@
         
         /* ===== HEADER & HERO SECTION ===== */
         header {
-            text-align: center;
-            padding: 2rem 1.5rem 3rem;
+            text-align: center;            padding: 2rem 1.5rem 3rem;
             position: relative;
             z-index: 10;
             animation: fadeInDown 1s ease-out;
@@ -169,8 +166,7 @@
             50% { opacity: 1; box-shadow: 0 0 20px var(--secondary); }
         }
         
-        .subtitle {
-            font-size: 1.4rem;
+        .subtitle {            font-size: 1.4rem;
             margin-bottom: 2.5rem;
             color: rgba(255, 255, 255, 0.85);
             max-width: 700px;
@@ -217,7 +213,9 @@
         .game-card:nth-child(3) { animation-delay: 0.3s; }
         .game-card:nth-child(4) { animation-delay: 0.4s; }
         .game-card:nth-child(5) { animation-delay: 0.5s; }
-        
+        .game-card:nth-child(6) { animation-delay: 0.6s; }
+        .game-card:nth-child(7) { animation-delay: 0.7s; }
+        .game-card:nth-child(8) { animation-delay: 0.8s; }        
         @keyframes cardEntrance {
             to {
                 opacity: 1;
@@ -266,8 +264,7 @@
         @keyframes iconFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
-        }
-        
+        }        
         .card-content {
             padding: 1.5rem;
             flex-grow: 1;
@@ -316,8 +313,7 @@
         }
         
         .play-btn::after {
-            content: "";
-            position: absolute;
+            content: "";            position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
@@ -366,8 +362,7 @@
             }
             
             .games-container {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));                gap: 1.5rem;
                 padding: 0 1rem 3rem;
             }
             
@@ -416,8 +411,7 @@
         /* ===== SOUND EFFECTS TOGGLE ===== */
         .sound-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 20px;            right: 20px;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -452,7 +446,7 @@
             100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0); }
         }
         
-        /* ===== GAME LAUNCHER OVERLAY - UPDATED ===== */
+        /* ===== GAME LAUNCHER OVERLAY ===== */
         .game-overlay {
             position: fixed;
             top: 0;
@@ -466,8 +460,7 @@
             justify-content: center;
             z-index: 1000;
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
+            pointer-events: none;            transition: opacity 0.4s ease;
         }
         
         .game-overlay.active {
@@ -516,8 +509,7 @@
             box-shadow: 0 6px 16px rgba(0, 206, 201, 0.5);
         }
         
-        .back-menu-btn {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        .back-menu-btn {            background: linear-gradient(135deg, #e74c3c, #c0392b);
         }
         
         .back-menu-btn:hover {
@@ -566,9 +558,7 @@
             top: 0;
             width: 60px;
             height: 100%;
-            z-index: 1001;
-            /* background: rgba(255,255,255,0.05); */
-        }
+            z-index: 1001;        }
         
         /* Exit Confirmation Modal */
         .exit-modal {
@@ -617,8 +607,7 @@
         .modal-btn {
             padding: 12px 30px;
             border: none;
-            border-radius: 25px;
-            font-weight: 600;
+            border-radius: 25px;            font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
             transition: var(--transition);
@@ -667,8 +656,7 @@
             width: 100%;
             height: 100vh;
         }
-        
-        /* Responsive for Game Overlay */
+                /* Responsive for Game Overlay */
         @media (max-width: 768px) {
             .game-controls {
                 top: 10px;
@@ -705,7 +693,7 @@
     <!-- Header Section -->
     <header>
         <h1 class="logo">Muhammad Usman Collection Games</h1>
-        <p class="subtitle">Experience the ultimate gaming hub with 5 exciting games. Click any card to start playing instantly!</p>
+        <p class="subtitle">Experience the ultimate gaming hub with 8 exciting games. Click any card to start playing instantly!</p>
     </header>
     
     <!-- Games Grid -->
@@ -717,8 +705,7 @@
                     <i class="fas fa-maze"></i>
                 </div>
             </div>
-            <div class="card-content">
-                <h2 class="game-title">Maze Dungeon Labyrinth</h2>
+            <div class="card-content">                <h2 class="game-title">Maze Dungeon Labyrinth</h2>
                 <p class="game-desc">Navigate through challenging mazes and escape the dungeon in this thrilling puzzle adventure.</p>
                 <button class="play-btn">
                     <i class="fas fa-play-circle"></i> Play Now
@@ -767,8 +754,7 @@
             </div>
             <div class="card-content">
                 <h2 class="game-title">Hunter Assassin</h2>
-                <p class="game-desc">Become the ultimate stealth assassin. Plan your moves and eliminate targets without being detected.</p>
-                <button class="play-btn">
+                <p class="game-desc">Become the ultimate stealth assassin. Plan your moves and eliminate targets without being detected.</p>                <button class="play-btn">
                     <i class="fas fa-play-circle"></i> Play Now
                 </button>
             </div>
@@ -789,6 +775,53 @@
                 </button>
             </div>
         </article>
+        
+        <!-- Game 6: Puzzle -->
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/Puzzle-/', 'Puzzle Challenge')">
+            <div class="card-icon">
+                <div class="icon-content" style="background: linear-gradient(45deg, #fd79a8, #fdcb6e); -webkit-background-clip: text; background-clip: text;">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Puzzle Challenge</h2>
+                <p class="game-desc">Test your brain with exciting puzzles. Solve, match, and complete challenging levels.</p>
+                <button class="play-btn">
+                    <i class="fas fa-play-circle"></i> Play Now
+                </button>
+            </div>
+        </article>
+        
+        <!-- Game 7: Galaxy Storm V5 -->
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/GALAXY-STORM-V5/', 'Galaxy Storm V5')">
+            <div class="card-icon">
+                <div class="icon-content" style="background: linear-gradient(45deg, #00cec9, #0984e3); -webkit-background-clip: text; background-clip: text;">
+                    <i class="fas fa-rocket"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Galaxy Storm V5</h2>
+                <p class="game-desc">Blast through space in this intense shooting game. Destroy enemies and survive the galaxy storm!</p>
+                <button class="play-btn">
+                    <i class="fas fa-play-circle"></i> Play Now                </button>
+            </div>
+        </article>
+        
+        <!-- Game 8: Flaming Color -->
+        <article class="game-card" onclick="openGame('https://bablo01.github.io/Flaming-Color/', 'Flaming Color')">
+            <div class="card-icon">
+                <div class="icon-content" style="background: linear-gradient(45deg, #e17055, #fd79a8); -webkit-background-clip: text; background-clip: text;">
+                    <i class="fas fa-fire-alt"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="game-title">Flaming Color</h2>
+                <p class="game-desc">Match the right colors with fire! Fast-paced color matching game with burning challenges.</p>
+                <button class="play-btn">
+                    <i class="fas fa-play-circle"></i> Play Now
+                </button>
+            </div>
+        </article>
     </main>
     
     <!-- Footer -->
@@ -801,7 +834,7 @@
         <i class="fas fa-volume-up"></i>
     </button>
     
-    <!-- Game Launcher Overlay - UPDATED -->
+    <!-- Game Launcher Overlay -->
     <div class="game-overlay" id="gameOverlay">
         <!-- Swipe Zone for Back Gesture -->
         <div class="swipe-zone-left" id="swipeZone"></div>
@@ -819,8 +852,7 @@
         <!-- Hint Text -->
         <div class="controls-hint" id="controlsHint">
             <i class="fas fa-hand-point-left"></i> Swipe from left edge or tap screen to show/hide controls
-        </div>
-        
+        </div>        
         <!-- Game Frame - Full Screen -->
         <div class="game-frame">
             <iframe id="gameFrame" src="" allowfullscreen></iframe>
@@ -869,8 +901,7 @@
             
             // ===== SOUND EFFECTS =====
             const soundToggle = document.getElementById('soundToggle');
-            let soundEnabled = true;
-            let audioContext = null;
+            let soundEnabled = true;            let audioContext = null;
             
             const initAudio = () => {
                 if (!audioContext) {
@@ -919,8 +950,7 @@
             const gameFrame = document.getElementById('gameFrame');
             const gameControls = document.getElementById('gameControls');
             const controlsHint = document.getElementById('controlsHint');
-            const backMenuBtn = document.getElementById('backMenuBtn');
-            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const backMenuBtn = document.getElementById('backMenuBtn');            const fullscreenBtn = document.getElementById('fullscreenBtn');
             const swipeZone = document.getElementById('swipeZone');
             const exitModal = document.getElementById('exitModal');
             const modalOverlay = document.getElementById('modalOverlay');
@@ -963,14 +993,13 @@
                     if (controlsVisible && !exitModal.classList.contains('active')) {
                         hideControls();
                     }
-                }, 4000); // Hide after 4 seconds
+                }, 4000);
             };
             
             const hideControls = () => {
                 gameControls.classList.add('hidden');
                 controlsVisible = false;
-            };
-            
+            };            
             const showControls = () => {
                 gameControls.classList.remove('hidden');
                 controlsVisible = true;
@@ -1019,8 +1048,7 @@
                 // Swipe right from left edge to go back
                 if (diff > swipeThreshold && touchStartX < 100) {
                     showExitModal();
-                }
-            };
+                }            };
             
             // Show Exit Confirmation Modal
             const showExitModal = () => {
@@ -1069,8 +1097,7 @@
             
             // Click on modal overlay to close modal
             modalOverlay.addEventListener('click', hideExitModal);
-            
-            // Fullscreen Toggle
+                        // Fullscreen Toggle
             fullscreenBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 gameOverlay.classList.toggle('fullscreen');
@@ -1107,4 +1134,3 @@
     </script>
 </body>
 </html>
-
